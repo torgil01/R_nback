@@ -4,11 +4,14 @@ gen_df <- function(df.raw) {
 # -- 
 # traverse df.keep and build final df with following fields
 # trial [0back,2back], letter [A,X..], reponse[na, or responsetime in ms] 
-
-num_rows = 150 # size of experiment
+  
   library(dplyr)
   library(stringr)
   
+  # constants
+  num_rows = 150 # size of experiment
+
+
   get_trial <- function(text_str) {
     # return trial type
     trial = "NA"
