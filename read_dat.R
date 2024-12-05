@@ -48,8 +48,11 @@ read_dat <- function(filename) {
   # sort by time
   df.keep <- df.keep %>% arrange(time)
   
+  return(df.keep)
 
   
-  return(df.keep)
+  
+
+  
 
 }
