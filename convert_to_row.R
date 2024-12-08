@@ -1,8 +1,20 @@
-convert_to_row <- function(id,df) {
+convert_to_row <- function(id,df,fn) {
   library(dplyr)
+  library(stringr)
   source(here::here("get_empty_tibble.R"))
-  df.row <- get_empty_tibble()    
+  df.row <- get_empty_tibble(1)    
   df.row$id[1] <- id
+  # get date and time from filename
+  pos <- str_locate_all(fn,"_")
+  mpos <- pos[[1]]
+  rw <- dim(mpos)[1] 
+  pos_1 <- mpos[rw-1,1] + 1
+  pos_2 <- mpos[rw,1] -1
+  file_date <- substr(fn,pos_1,pos_2)
+  df.row$file_date[1] <- file_date
+  df.row$filename[1] <- fn
+  df.row$file_time[1] <- paste0(substr(fn,pos_2 + 2,pos_2 + 6),"m")
+
   # tot hits 0b & 2b
   df.row$tot_hits_0b[1] <- df %>% filter(trial_type == "0b") %>% 
     filter(correct == "yes") %>% 

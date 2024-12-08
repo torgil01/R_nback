@@ -22,6 +22,7 @@ read_dat <- function(filename) {
     
   
   df.keep <- df.dat %>%
+    filter(!str_detect(desc, "^Mouse:")) %>% 
     filter(type == "DATA")
   
 
@@ -47,12 +48,9 @@ read_dat <- function(filename) {
   
   # sort by time
   df.keep <- df.keep %>% arrange(time)
+
+ 
   
   return(df.keep)
-
-  
-  
-
-  
 
 }
