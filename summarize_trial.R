@@ -24,31 +24,39 @@ summarize_trial <- function(df.id) {
   
   # librarys
   library(dplyr)
-
+  # funs
+  source("get_empty_tibble2.R")
   # 
-  df.row <- get_empty_tibble(1)   
+  df.row <- get_empty_tibble2(1)   
 
-  num_correct_0b <- df.id %>% filter(cond == "0b") %>% summarise(sum(correct_resp == TRUE))
-  num_correct_2b <- df.id %>% filter(cond == "2b") %>% summarise(sum(correct_resp == TRUE))
-  num_miss_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == FALSE) & is.na(key_resp.rt)) %>% summarise(n())
-  num_miss_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == FALSE) & is.na(key_resp.rt)) %>% summarise(n())
-  num_errors_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == FALSE) & is.na(key_resp.rt)) %>% summarise(n())
-  num_errors_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == FALSE) & is.na(key_resp.rt)) %>% summarise(n())
-  rt_correct_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == TRUE) & !is.na(key_resp.rt)) %>% 
-    summarise(mean(key_resp.rt))
-  rt_correct_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == TRUE) & !is.na(key_resp.rt)) %>% 
-    summarise(mean(key_resp.rt))
-  rt_errors_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == FALSE) & !is.na(key_resp.rt)) %>% 
-    summarise(mean(key_resp.rt))
-  rt_errors_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == FALSE) & !is.na(key_resp.rt)) %>% 
-    summarise(mean(key_resp.rt))
-  std_correct_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == TRUE) & !is.na(key_resp.rt)) %>% 
-    summarise(sd(key_resp.rt))
-  std_correct_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == TRUE) & !is.na(key_resp.rt)) %>% 
-    summarise(sd(key_resp.rt))
-  std_errors_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == FALSE) & !is.na(key_resp.rt)) %>% 
-    summarise(sd(key_resp.rt))
-  std_errors_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == FALSE) & !is.na(key_resp.rt)) %>% 
-    summarise(sd(key_resp.rt))
+  df.row$id <- df.id$id[1]
+  df.row$trial <- as.character(df.id$trial[1])
+  df.row$test_date <- df.id$date[1]
+  df.row$test_time <- df.id$time[1]
+  df.row$filename <- df.id$filename[1]
+  df.row$num_correct_0b <- df.id %>% filter(cond == "0b") %>% summarise(sum(correct_resp == TRUE)) %>% pull()
+  df.row$num_correct_2b <- df.id %>% filter(cond == "2b") %>% summarise(sum(correct_resp == TRUE)) %>% pull()
+  df.row$num_miss_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == FALSE) & is.na(key_resp.rt)) %>% summarise(n()) %>% pull()
+  df.row$num_miss_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == FALSE) & is.na(key_resp.rt)) %>% summarise(n()) %>% pull()
+  df.row$num_errors_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == FALSE) & is.na(key_resp.rt)) %>% summarise(n()) %>% pull()
+  df.row$num_errors_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == FALSE) & is.na(key_resp.rt)) %>% summarise(n()) %>% pull()
+  df.row$rt_correct_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == TRUE) & !is.na(key_resp.rt)) %>% 
+    summarise(mean(key_resp.rt)) %>% pull()
+  df.row$rt_correct_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == TRUE) & !is.na(key_resp.rt)) %>% 
+    summarise(mean(key_resp.rt)) %>% pull()
+  df.row$rt_errors_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == FALSE) & !is.na(key_resp.rt)) %>% 
+    summarise(mean(key_resp.rt)) %>% pull()
+  df.row$rt_errors_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == FALSE) & !is.na(key_resp.rt)) %>% 
+    summarise(mean(key_resp.rt)) %>% pull()
+  df.row$std_correct_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == TRUE) & !is.na(key_resp.rt)) %>% 
+    summarise(sd(key_resp.rt)) %>% pull()
+  df.row$std_correct_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == TRUE) & !is.na(key_resp.rt)) %>% 
+    summarise(sd(key_resp.rt)) %>% pull()
+  df.row$std_errors_0b <- df.id %>% filter(cond == "0b") %>%  filter((correct_resp == FALSE) & !is.na(key_resp.rt)) %>% 
+    summarise(sd(key_resp.rt)) %>% pull()
+  df.row$std_errors_2b <- df.id %>% filter(cond == "2b") %>%  filter((correct_resp == FALSE) & !is.na(key_resp.rt)) %>% 
+    summarise(sd(key_resp.rt)) %>% pull()
+
+  return(df.row)
 
 }

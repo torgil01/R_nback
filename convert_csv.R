@@ -7,7 +7,7 @@ convert_csv <- function(csv_file) {
   df_raw <- read_csv(csv_file)
   cond_array = c("0b","2b","0b","2b","0b","2b","0b","2b","0b","2b")
   df.list = vector(mode = "list", length = 10)
-  trial=1:150
+  
   for (i in 1:10) {
     v1 <- paste0("letter",i-1)
     v2 <- paste0("target",i-1)
@@ -31,6 +31,8 @@ convert_csv <- function(csv_file) {
     df.list[[8]],
     df.list[[9]],
     df.list[[10]])
+    tt <- dim(df)[1]
+    trial=1:tt # hck 
     df <- df %>% mutate(trial = trial )
   
     df <- df %>% mutate(corrAns = if_else(corrAns =="space", "a","None"))
@@ -81,15 +83,13 @@ convert_csv <- function(csv_file) {
   # # add id , session and date
   
   
-  sess_date <- as.Date(df_raw$date[1], format ="%Y-%m-%d")
+  sess_date <-df_raw$date[1]
   sess_time <- paste0(substr(df_raw$date[1],12,16),"m")
   df <- df %>% mutate(id = as.character(df_raw$participant[1]))
   df <- df %>% mutate(session = df_raw$session[1])
   df <- df %>% mutate(date = sess_date)
   df <- df %>% mutate(time = sess_time)
-
-
-  
+  df <- df %>% mutate(filename = basename(csv_file))
   df.resp <- df.resp %>% mutate(trial = trial )  
   df <- df %>% left_join(df.resp)
   df <- df %>% mutate(correct_resp = if_else(corrAns == key_resp.keys,TRUE,FALSE))
