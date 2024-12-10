@@ -43,16 +43,22 @@ convert_csv <- function(csv_file) {
   # key_resp.keys key_resp_?.keys
   # key_resp.rt "key_resp_?.rt
   # no order in the numbering 
-  num_str = c("." ,"_2." ,"_3.", "_4.","_12.","_13.","_14.","_16.","_15.","_6.")    
+  num_str = c("." ,"_2." ,"_3.", "_4.","_12.","_13.","_14.","_16.","_15.","_6.")  
+  fix_str = c("fiksering0.started", "Fiksering1.started","fiksering2.started", 
+    "fiksering.started","fiksering_21.started", "text_22.started","fiksering_24.started",    
+    "fiksering_27.started", "text_25.started", "fiksering12.started")
+
   df.list = vector(mode = "list", length = 10)
   for (i in 1:10) {
-    v1 <- paste0("key_resp",num_str[i],"keys")
-    v2 <- paste0("key_resp",num_str[i],"rt")  
-    vars = c(v1,v2)
+    v0 <- fix_str[i]
+    v1 <- paste0("key_resp",num_str[i],"keys")    
+    v2 <- paste0("key_resp",num_str[i],"rt")      
+    vars = c(v0,v1,v2)
     df.list[[i]] <- df_raw %>% 
-      select(matches(vars)) %>% 
+      select(matches(vars)) %>%       
       filter(!is.na(!!sym(vars[[1]][1]))) %>%
-      slice_head(n = 15) %>%       
+      slice_head(n = 15) %>%    
+      rename(onset_fixation = fix_str[i]) %>% 
       rename_with(~gsub('[[:digit:]]+', "", .))   
     if (i > 1) {
       df.list[[i]] <- df.list[[i]]  %>%
@@ -74,8 +80,9 @@ convert_csv <- function(csv_file) {
   
   # # add id , session and date
   
-  sess_date <- as.Date(df_raw$date, format ="%Y-%m-%d")
-  sess_time <- paste0(substr(df_raw$date,12,16),"m")
+  
+  sess_date <- as.Date(df_raw$date[1], format ="%Y-%m-%d")
+  sess_time <- paste0(substr(df_raw$date[1],12,16),"m")
   df <- df %>% mutate(id = as.character(df_raw$participant[1]))
   df <- df %>% mutate(session = df_raw$session[1])
   df <- df %>% mutate(date = sess_date)
