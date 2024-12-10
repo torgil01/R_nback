@@ -2,6 +2,7 @@ convert_csv <- function(csv_file) {
   library(readr)
   library(dplyr)
   library(rlang)
+  library(stringr)
 
   df_raw <- read_csv(csv_file)
   cond_array = c("0b","2b","0b","2b","0b","2b","0b","2b","0b","2b")
@@ -17,8 +18,7 @@ convert_csv <- function(csv_file) {
       filter(!is.na(!!sym(vars[[1]][1]))) %>%
       slice_head(n = 15) %>% 
       mutate(cond = cond_array[i]) %>%      
-      rename_with(~gsub('[[:digit:]]+', "", .))
-    trial = trial +1
+      rename_with(~gsub('[[:digit:]]+', "", .))    
   } # block verified
 
   df <- bind_rows(df.list[[1]],
@@ -71,6 +71,17 @@ convert_csv <- function(csv_file) {
     df.list[[8]],
     df.list[[9]],
     df.list[[10]])
+  
+  # # add id , session and date
+  
+  sess_date <- as.Date(df_raw$date, format ="%Y-%m-%d")
+  sess_time <- paste0(substr(df_raw$date,12,16),"m")
+  df <- df %>% mutate(id = as.character(df_raw$participant[1]))
+  df <- df %>% mutate(session = df_raw$session[1])
+  df <- df %>% mutate(date = sess_date)
+  df <- df %>% mutate(time = sess_time)
+
+
   
   df.resp <- df.resp %>% mutate(trial = trial )  
   df <- df %>% left_join(df.resp)
