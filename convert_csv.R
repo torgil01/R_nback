@@ -60,12 +60,15 @@ convert_csv <- function(csv_file) {
       select(matches(vars)) %>%       
       filter(!is.na(!!sym(vars[[1]][1]))) %>%
       slice_head(n = 15) %>%    
-      rename(onset_fixation = fix_str[i]) %>% 
-      rename_with(~gsub('[[:digit:]]+', "", .))   
-    if (i > 1) {
+      rename(onset_fixation = fix_str[i])%>%  
+      rename_with(~gsub('_[[:digit:]]+', "", .))   
+     # cat("names=",i, "..",names(df.list[[i]]),"\n")
+   # if (i > 1) {
+      if ("key_resp_.rt" %in% names(df.list[[i]])) {
       df.list[[i]] <- df.list[[i]]  %>%
-        rename(key_resp.rt = key_resp_.rt,
-          key_resp.keys = key_resp_.keys)      
+        rename(key_resp.rt = key_resp_.rt,      
+          key_resp.keys = key_resp_.keys) 
+    #    }
     }
   } # block verified
 
