@@ -56,6 +56,13 @@ convert_csv <- function(csv_file) {
     v1 <- paste0("key_resp",num_str[i],"keys")    
     v2 <- paste0("key_resp",num_str[i],"rt")      
     vars = c(v0,v1,v2)
+    # if there is no response there will be no *.rt label 
+    # insert empty labels if missing. 
+    if (! v2 %in% vars) {
+      df_raw <- df_raw %>% 
+        mutate(!! as.name(sym(v2) = NA)
+    }
+
     df.list[[i]] <- df_raw %>% 
       select(matches(vars)) %>%       
       filter(!is.na(!!sym(vars[[1]][1]))) %>%
@@ -63,13 +70,15 @@ convert_csv <- function(csv_file) {
       rename(onset_fixation = fix_str[i])%>%  
       rename_with(~gsub('_[[:digit:]]+', "", .))   
      # cat("names=",i, "..",names(df.list[[i]]),"\n")
-   # if (i > 1) {
-      if ("key_resp_.rt" %in% names(df.list[[i]])) {
-      df.list[[i]] <- df.list[[i]]  %>%
-        rename(key_resp.rt = key_resp_.rt,      
-          key_resp.keys = key_resp_.keys) 
-    #    }
-    }
+     
+    
+    # if (i > 1) {
+    #   if ("key_resp_.rt" %in% names(df.list[[i]])) {
+    #   df.list[[i]] <- df.list[[i]]  %>%
+    #     rename(key_resp.rt = key_resp_.rt,      
+    #       key_resp.keys = key_resp_.keys) 
+    # #    }
+    # }
   } # block verified
 
   df.resp <- bind_rows(df.list[[1]],
