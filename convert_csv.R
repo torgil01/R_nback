@@ -58,9 +58,11 @@ convert_csv <- function(csv_file) {
     vars = c(v0,v1,v2)
     # if there is no response there will be no *.rt label 
     # insert empty labels if missing. 
-    if (! v2 %in% vars) {
+    if (! v2 %in% names(df_raw)) {
+      # non dplyr solution is actually better 
+      # df_raw[[v2]] <- NA
       df_raw <- df_raw %>% 
-        mutate(!! as.name(sym(v2) = NA)
+        mutate( {{v2}} := NA)
     }
 
     df.list[[i]] <- df_raw %>% 

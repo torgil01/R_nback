@@ -9,6 +9,17 @@ installere disse:
 install.packages('dplyr', 'stringr', 'here', 'readr', 'tidyr')
 ```
 
+## A. lese fra csv filene 
+For å lese fra csv loggfilene bruker man `convert_dat_csv`. Input er mappen med csv filer. 
+
+```R
+ df <- convert_dat("../test_data/")
+ ```
+
+
+## B. lese fra loggfil 
+I noen tilfeller er ikke respons lagret i csv filene, men finnes i logg filene. Bruk da `convert_dat`. 
+
 
 ## Konvertere logfil
 Eksempel 
