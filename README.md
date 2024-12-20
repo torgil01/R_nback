@@ -13,22 +13,47 @@ install.packages('dplyr', 'stringr', 'here', 'readr', 'tidyr')
 For å lese fra csv loggfilene bruker man `convert_dat_csv`. Input er mappen med csv filer. 
 
 ```R
- df <- convert_dat("../test_data/")
+ df.csv <- convert_dat_csv("../test_data/")
  ```
+
+Dette gir føgende df:   
+
+```
+> glimpse(df.csv)
+Rows: 5
+Columns: 19
+$ id             <chr> "319", "320_2", "320", "321_1", "322_1"
+$ trial          <chr> "1", "1", "1", "1", "1"
+$ test_date      <date> 2023-06-13, 2023-10-11, 2023-09-26, 2023-10-10, 2023-10-31
+$ test_time      <chr> "14h59m", "15h08m", "14h51m", "14h28m", "14h45m"
+$ filename       <chr> "319_nback_fmri_nnl_2023-06-13_14h59.40.616.csv", "320_2_nback_fmri_nnl_2023-10-11_15h08.55.719.csv",…
+$ num_correct_0b <int> 60, 75, 60, 74, 75
+$ num_correct_2b <int> 60, 75, 60, 75, 75
+$ num_errors_0b  <int> 15, 0, 15, 1, 0
+$ num_errors_2b  <int> 15, 0, 15, 0, 0
+$ num_miss_0b    <int> 15, 0, 15, 1, 0
+$ num_miss_2b    <int> 15, 0, 15, 0, 0
+$ rt_correct_0b  <dbl> NA, 0.4431398, NA, 0.6865206, 0.4635678
+$ rt_correct_2b  <dbl> NA, 0.4374741, NA, 0.7036972, 0.4889033
+$ rt_errors_0b   <lgl> NA, NA, NA, NA, NA
+$ rt_errors_2b   <lgl> NA, NA, NA, NA, NA
+$ std_correct_0b <dbl> NA, 0.06552750, NA, 0.07994602, 0.07390334
+$ std_correct_2b <dbl> NA, 0.08273352, NA, 0.15706857, 0.14320421
+$ std_errors_0b  <dbl> NA, NA, NA, NA, NA
+$ std_errors_2b  <dbl> NA, NA, NA, NA, NA
+```
 
 
 ## B. lese fra loggfil 
 I noen tilfeller er ikke respons lagret i csv filene, men finnes i logg filene. Bruk da `convert_dat`. 
 
-
-## Konvertere logfil
-Eksempel 
+**Eksempel:**
 
 ```R 
  df <- convert_dat("../test_data/308_nback_fmri_nnl_2022-10-18_15h25.25.224.log")
 ```
 
-Dette gir en dataframe som ser slik ut: 
+Dette gir følgende dataframe:  
 
 ```
 # A tibble: 6 × 8
