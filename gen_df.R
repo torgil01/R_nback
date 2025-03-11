@@ -162,7 +162,7 @@ gen_df <- function(df.raw) {
                 # we may have a keypress before stimuli
                 # this has to be dropped
                 
-                rt = df.raw$time[i+1] - text_onset
+                rt = df.raw$time[i+1] - text_onset - 1
                 #cat("rt = ", rt, "text_onset =", text_onset,"disp_text =",disp_text, "\n")
                 if (!is.na(disp_text)) {
                   

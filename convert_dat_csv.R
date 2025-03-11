@@ -31,8 +31,11 @@ convert_dat_csv <- function(data_dir) {
       cat(csv_files[i], "is incomplete .. skipping", "\n")      
     }       
   } 
-  df$test_date <- as.Date(df$test_date, format ="%Y-%m-%d")
+  
   df <- df %>% filter(id != "")
+  # replace NaN with NA 
+  df <- df %>% mutate_all(~ifelse(is.nan(.), NA, .))
+  df$test_date <- as.Date(df$test_date) # , format ="%Y-%m-%d"
   return(df)
   
 

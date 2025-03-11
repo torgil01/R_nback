@@ -31,7 +31,7 @@ summarize_trial <- function(df.id) {
 
   df.row$id <- df.id$id[1]
   df.row$trial <- as.character(df.id$trial[1])
-  df.row$test_date <- df.id$date[1]
+  df.row$test_date <-  as.character(df.id$date[1]) # as.Date(df.id$date[1], format ="%Y-%m-%d") 
   df.row$test_time <- df.id$time[1]
   df.row$filename <- df.id$filename[1]
   df.row$num_correct_0b <- df.id %>% filter(cond == "0b") %>% summarise(sum(correct_resp == TRUE)) %>% pull()

@@ -22,6 +22,7 @@ get_empty_tibble2 <- function(n) {
     std_errors_2b = double(n)    
   ) 
 
+ # df$test_date <- as.Date(df$test_date,format ="%Y-%m-%d")
 
   #
   # num_correct_0b # either correct keypress or no reposne 

@@ -51,7 +51,44 @@ convert_to_row <- function(id,df,fn) {
     filter(correct == "no") %>% 
     summarize(n = mean(rt)) %>% 
     pull()
-  
+  #
+  df.row$std_rt_hit_0b[1] <- df %>% filter(trial_type == "0b") %>% 
+    filter(correct == "yes") %>% 
+    summarize(n = sd(rt)) %>% 
+    pull()
+  df.row$std_rt_hit_2b[1] <- df %>% filter(trial_type == "2b") %>% 
+    filter(correct == "yes") %>% 
+    summarize(n = sd(rt)) %>% 
+    pull()
+  #
+  df.row$std_rt_fail_0b[1] <- df %>% filter(trial_type == "0b") %>% 
+    filter(correct == "no") %>% 
+    summarize(n = sd(rt)) %>% 
+    pull()
+  df.row$std_rt_fail_2b[1] <- df %>% filter(trial_type == "2b") %>% 
+    filter(correct == "no") %>% 
+    summarize(n = sd(rt)) %>% 
+    pull()
+  # 
+  df.row$min_rt_hit_0b[1] <- df %>% filter(trial_type == "0b") %>% 
+    filter(correct == "yes") %>% 
+    summarize(n = min(rt)) %>% 
+    pull()
+  df.row$min_rt_hit_2b[1] <- df %>% filter(trial_type == "2b") %>% 
+    filter(correct == "yes") %>% 
+    summarize(n = min(rt)) %>% 
+    pull()
+  #
+  df.row$max_rt_hit_0b[1] <- df %>% filter(trial_type == "0b") %>% 
+    filter(correct == "yes") %>% 
+    summarize(n = max(rt)) %>% 
+    pull()
+  df.row$max_rt_hit_2b[1] <- df %>% filter(trial_type == "2b") %>% 
+    filter(correct == "yes") %>% 
+    summarize(n = max(rt)) %>% 
+    pull()
+
+
   return(df.row)
 
 }
