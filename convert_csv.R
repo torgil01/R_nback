@@ -5,6 +5,9 @@ convert_csv <- function(csv_file) {
   library(stringr)
 
   df_raw <- read_csv(csv_file)
+  if (dim(df_raw)[2] > 178) {
+    df_raw <- df_raw[,1:178]
+  }
   cond_array = c("0b","2b","0b","2b","0b","2b","0b","2b","0b","2b")
   df.list = vector(mode = "list", length = 10)
   
