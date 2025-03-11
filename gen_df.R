@@ -107,6 +107,7 @@ gen_df <- function(df.raw) {
     select(time) %>% 
     pull() %>% 
     as.double()
+    cat("start_time = ",start_time," \n")
     df.raw <- df.raw %>% mutate(time = time - start_time) %>%
     filter(time > 0)
     
