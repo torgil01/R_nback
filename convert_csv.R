@@ -53,6 +53,19 @@ convert_csv <- function(csv_file) {
     "fiksering.started","fiksering_21.started", "text_22.started","fiksering_24.started",    
     "fiksering_27.started", "text_25.started", "fiksering12.started")
 
+  
+  #> for offline -------------------------------
+  fix_str = c("fiksering0.started",
+"Fiksering1.started",
+"text_5.started",
+"fiksering.started",
+"key_resp_12.started",
+"key_resp_13.started",
+"key_resp_14.started",
+"key_resp_16.started",
+"key_resp_15.started",
+"key_resp_6.started")
+    
   df.list = vector(mode = "list", length = 10)
   for (i in 1:10) {
     v0 <- fix_str[i]

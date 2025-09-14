@@ -1,4 +1,4 @@
-convert_dat <- function(data_dir) {
+convert_dat_offline <- function(data_dir) {
   source(here::here("gen_df_offline.R"))
   source(here::here("read_dat.R"))
   source(here::here("get_empty_tibble.R"))
