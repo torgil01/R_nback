@@ -10,7 +10,7 @@ convert_dat_csv <- function(data_dir) {
 
   # ------ MAIN ------------
 
-  csv_files <- list.files(data_dir, pattern = ".csv", full.names = TRUE)
+  csv_files <- list.files(data_dir, pattern = "\\.csv$", full.names = TRUE)
 
   # allocate the final df
   df <- get_empty_tibble2(length(csv_files))

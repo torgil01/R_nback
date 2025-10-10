@@ -1,5 +1,6 @@
 convert_dat <- function(data_dir) {
   library(dplyr)
+  library(stringr)
 
   source(here::here("gen_df.R"))
   source(here::here("get_id.R"))
@@ -9,7 +10,7 @@ convert_dat <- function(data_dir) {
 
   # ------ MAIN ------------
 
-  data_files <- list.files(data_dir, pattern = ".log", full.names = TRUE)
+  data_files <- list.files(data_dir, pattern = "\\.log$", full.names = TRUE)
 
   # allocate the final df
   df <- get_empty_tibble(length(data_files))

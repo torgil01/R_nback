@@ -5,14 +5,16 @@
 
 # Other 
 *.docx
-*.html
 *.7z
 *.rds
 *.csv
 *.sav
 *.log
-.vscode
-
+.vscode/
+*.woff
+*.js
+*.css
+README_files/
 
 
 # Session Data files

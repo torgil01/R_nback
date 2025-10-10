@@ -3,39 +3,22 @@ collect_all <- function() {
   library(dplyr)
   library(haven)
 
+  # funs
+  source(here::here("convert_dat.R"))
+  source(here::here("convert_dat_csv.R"))
+
+  # settings
   format = "spss"
+  export_dir = "data/export/"
+  data_scanner = "data/skanner"
+  data_lab = "data/lab"
 
-  export_dir = "export_new/"
-  # convert data from MR sessions
-  #data_dir = "../data_261124/data"
-  data_dir = "../true_logfiles/"
-  out_file = paste0(export_dir, "Gruppe_i_MR.sav")
-  #convert_dat(data_dir) %>% write_csv(out_file)
-  #convert_dat(data_dir) %>% write_sav(out_file)
-
-  df1 <- convert_dat(data_dir)
-
-  # convert data from outside scanner
-  data_dir = "../fra_runar/Kontrollgruppedeltakere_med_MR"
-  out_file = paste0(export_dir, "Kontrollgruppedeltakere_med_MR.sav")
-  #convert_dat_csv(data_dir) %>% write_csv(out_file)
-  #convert_dat_csv(data_dir) %>% write_sav(out_file)
-  df2 <- convert_dat_csv(data_dir)
-
-  data_dir = "../fra_runar/Kontrollgruppedeltakere_uten_MR"
-  out_file = paste0(export_dir, "Kontrollgruppedeltakere_uten_MR.sav")
-  #convert_dat_csv(data_dir) %>% write_csv(out_file)
-  #convert_dat_csv(data_dir) %>% write_sav(out_file)
-  df3 <- convert_dat_csv(data_dir)
-
-  data_dir = "../fra_runar/Behandlingsgruppedeltakere_utenfor_MR"
-  out_file = paste0(export_dir, "Behandlingsgruppedeltakere_utenfor_MR.sav")
-  #  convert_dat_csv(data_dir) %>% write_csv(out_file)
-  # convert_dat_csv(data_dir) %>% write_sav(out_file)
-  df4 <- convert_dat_csv(data_dir)
+  # data from scanner
+  df1 <- convert_dat(data_scanner)
+  df2 <- convert_dat_csv(data_lab)
 
   # combine all
-  df <- bind_rows(df1, df2, df3, df4)
+  df <- bind_rows(df1, df2)
 
   df <- df %>%
     mutate(id_comment = str_split(id, "_", simplify = TRUE)[, 2]) %>%
@@ -53,5 +36,6 @@ collect_all <- function() {
     mutate(trial = row_number()) %>%
     ungroup()
 
-  return(df)
+  # save to spss
+  write_sav(df, paste0(export_dir, "nback_all.sav"))
 }
