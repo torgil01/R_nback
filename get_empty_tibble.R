@@ -5,23 +5,26 @@ get_empty_tibble <- function(n) {
     file_date = character(n),
     file_time = character(n),
     filename = character(n),
-    tot_hits_0b = integer(n),
-    tot_hits_2b = integer(n),
-    tot_fails_0b = integer(n),
-    tot_fails_2b = integer(n),
-    avg_rt_hit_0b = double(n),
-    avg_rt_hit_2b = double(n),
-    avg_rt_fail_0b = double(n),
-    avg_rt_fail_2b = double(n),
-    std_rt_hit_0b = double(n),
-    std_rt_hit_2b = double(n),
-    std_rt_fail_0b = double(n),
-    std_rt_fail_2b = double(n), 
-    min_rt_hit_0b = double(n),
-    min_rt_hit_2b = double(n),   
-    max_rt_hit_0b = double(n),
-    max_rt_hit_2b = double(n)
-  ) 
+    hit0 = double(n),
+    hit2 = double(n),
+    false0 = double(n),
+    false2 = double(n),
+    coreject0 = double(n),
+    coreject2 = double(n),
+    rt_hit0 = double(n),
+    rt_hit2 = double(n),
+    rt_false0 = double(n),
+    rt_false2 = double(n),
+    sd_hit0 = double(n),
+    sd_hit2 = double(n),
+    sd_false0 = double(n),
+    sd_false2 = double(n)  ) 
   return(df)      
 }
 
+
+#tot_hits_0b = integer(n),
+    # tot_hits_2b = integer(n),
+    # tot_fails_0b = integer(n),
+    # tot_fails_2b = integer(n),
+    

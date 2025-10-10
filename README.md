@@ -1,5 +1,7 @@
 # R kode for å konvertere N back logfiler 
 
+**Offline data leses fra csv fil, mens mri data leses fra logfil**
+
 ## Installere bibliotek 
 Trenger `dplyr`, `stringr`, `here`, `readr`, `tidyr` 
 
